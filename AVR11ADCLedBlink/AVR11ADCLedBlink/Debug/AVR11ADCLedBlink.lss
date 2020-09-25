@@ -1,0 +1,188 @@
+
+AVR11ADCLedBlink.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000158  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000104  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000158  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000188  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000038  00000000  00000000  000001c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000007ea  00000000  00000000  00000200  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000722  00000000  00000000  000009ea  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000306  00000000  00000000  0000110c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000054  00000000  00000000  00001414  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003e0  00000000  00000000  00001468  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000102  00000000  00000000  00001848  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  0000194a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 71 00 	call	0xe2	; 0xe2 <main>
+  78:	0c 94 80 00 	jmp	0x100	; 0x100 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <adc_init>:
+		
+	}
+}
+void adc_init(void)
+{
+	ADCSRA |= ((1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0));
+  80:	ea e7       	ldi	r30, 0x7A	; 122
+  82:	f0 e0       	ldi	r31, 0x00	; 0
+  84:	80 81       	ld	r24, Z
+  86:	87 60       	ori	r24, 0x07	; 7
+  88:	80 83       	st	Z, r24
+	ADMUX |= (1<<REFS0);
+  8a:	ac e7       	ldi	r26, 0x7C	; 124
+  8c:	b0 e0       	ldi	r27, 0x00	; 0
+  8e:	8c 91       	ld	r24, X
+  90:	80 64       	ori	r24, 0x40	; 64
+  92:	8c 93       	st	X, r24
+	ADCSRA |= (1<<ADEN);
+  94:	80 81       	ld	r24, Z
+  96:	80 68       	ori	r24, 0x80	; 128
+  98:	80 83       	st	Z, r24
+	ADCSRA |= (1<<ADSC);
+  9a:	80 81       	ld	r24, Z
+  9c:	80 64       	ori	r24, 0x40	; 64
+  9e:	80 83       	st	Z, r24
+  a0:	08 95       	ret
+
+000000a2 <read_adc>:
+}
+
+unsigned int read_adc(unsigned char channel)
+{
+	ADMUX &= 0xF0;
+  a2:	ec e7       	ldi	r30, 0x7C	; 124
+  a4:	f0 e0       	ldi	r31, 0x00	; 0
+  a6:	90 81       	ld	r25, Z
+  a8:	90 7f       	andi	r25, 0xF0	; 240
+  aa:	90 83       	st	Z, r25
+	ADMUX |= channel;
+  ac:	90 81       	ld	r25, Z
+  ae:	89 2b       	or	r24, r25
+  b0:	80 83       	st	Z, r24
+	ADCSRA |= (1<<ADSC);
+  b2:	ea e7       	ldi	r30, 0x7A	; 122
+  b4:	f0 e0       	ldi	r31, 0x00	; 0
+  b6:	80 81       	ld	r24, Z
+  b8:	80 64       	ori	r24, 0x40	; 64
+  ba:	80 83       	st	Z, r24
+	while (ADCSRA & (1<<ADSC));
+  bc:	80 81       	ld	r24, Z
+  be:	86 fd       	sbrc	r24, 6
+  c0:	fd cf       	rjmp	.-6      	; 0xbc <read_adc+0x1a>
+	return ADCW;
+  c2:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__DATA_REGION_ORIGIN__+0x18>
+  c6:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__DATA_REGION_ORIGIN__+0x19>
+}
+  ca:	08 95       	ret
+
+000000cc <__delay_ms>:
+
+void __delay_ms(int n) {
+	while(n--) {
+  cc:	00 97       	sbiw	r24, 0x00	; 0
+  ce:	41 f0       	breq	.+16     	; 0xe0 <__delay_ms+0x14>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  d0:	ef e9       	ldi	r30, 0x9F	; 159
+  d2:	ff e0       	ldi	r31, 0x0F	; 15
+  d4:	31 97       	sbiw	r30, 0x01	; 1
+  d6:	f1 f7       	brne	.-4      	; 0xd4 <__delay_ms+0x8>
+  d8:	00 c0       	rjmp	.+0      	; 0xda <__delay_ms+0xe>
+  da:	00 00       	nop
+  dc:	01 97       	sbiw	r24, 0x01	; 1
+  de:	c1 f7       	brne	.-16     	; 0xd0 <__delay_ms+0x4>
+  e0:	08 95       	ret
+
+000000e2 <main>:
+void adc_init();
+unsigned int read_adc(unsigned char channel);
+void __delay_ms(int n);
+int main(void)
+{
+	adc_init();
+  e2:	0e 94 40 00 	call	0x80	; 0x80 <adc_init>
+	DDRD |= (1<<PD2);
+  e6:	52 9a       	sbi	0x0a, 2	; 10
+	while (1)
+	{
+		unsigned int bekleme = 0;
+		int adc = read_adc(0);
+  e8:	80 e0       	ldi	r24, 0x00	; 0
+  ea:	0e 94 51 00 	call	0xa2	; 0xa2 <read_adc>
+  ee:	ec 01       	movw	r28, r24
+		bekleme = adc;
+		PORTD |= (1<<PD2);
+  f0:	5a 9a       	sbi	0x0b, 2	; 11
+		__delay_ms(bekleme);
+  f2:	0e 94 66 00 	call	0xcc	; 0xcc <__delay_ms>
+		PORTD &=~(1<<PD2);
+  f6:	5a 98       	cbi	0x0b, 2	; 11
+		__delay_ms(bekleme);
+  f8:	ce 01       	movw	r24, r28
+  fa:	0e 94 66 00 	call	0xcc	; 0xcc <__delay_ms>
+  fe:	f4 cf       	rjmp	.-24     	; 0xe8 <main+0x6>
+
+00000100 <_exit>:
+ 100:	f8 94       	cli
+
+00000102 <__stop_program>:
+ 102:	ff cf       	rjmp	.-2      	; 0x102 <__stop_program>
